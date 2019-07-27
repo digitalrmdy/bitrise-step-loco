@@ -7,12 +7,9 @@
 # - Bitrise docs: http://devcenter.bitrise.io/
 # - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
 
-title: |-
-  loco
-summary: |
-  Upload or download translations from Loco
-description: |
-  This step can upload your new assets to Loco and download updated assets from Loco. Importing (upload) is always done before exporting (download).
+title: loco
+summary: Upload or download translations from Loco
+description: This step can upload your new assets to Loco and download updated assets from Loco. Importing (upload) is always done before exporting (download).
 website: https://github.com/3factr/bitrise-step-loco
 source_code_url: https://github.com/3factr/bitrise-step-loco
 support_url: https://github.com/3factr/bitrise-step-loco/issues
@@ -65,135 +62,308 @@ inputs:
 # Inputs for both import & export
   - loco_api_key:
     opts:
-      title: "Loco API key"
+      title: Loco API key
       summary: Your Loco export key if you only want to download translations, or your Loco Full access key if you want to upload new assets.
-      description: |
-        You can get your API key under _Developer Tools > API keys_.
+      description: Your Loco export key if you only want to download translations, or your Loco Full access key if you want to upload new assets. You can get your API key under _Developer Tools > API keys_.
       is_expand: true
       is_required: true
       is_sensitive: true
 # Import input variables
-  - import_file_ext: "csv"
+  - import_file_ext: csv
     opts:
-      title: "File extension"
-      summary: "File extension for the type of data you're importing. Required if you are importing assets."
-      category: "Import"
+      title: File extension
+      summary: File extension for the type of data you're importing. Required if you are importing assets.
+      category: Import
       value_options:
-        - "arb"
-        - "bplist"
-        - "csv"
-        - "ini"
-        - "json"
-        - "mo"
-        - "php"
-        - "plist"
-        - "po"
-        - "pot"
-        - "properties"
-        - "res"
-        - "resx"
-        - "strings"
-        - "tmx"
-        - "ts"
-        - "txt"
-        - "xlf"
-        - "xml"
-        - "yml"
+        - arb
+        - bplist
+        - csv
+        - ini
+        - json
+        - mo
+        - php
+        - plist
+        - po
+        - pot
+        - properties
+        - res
+        - resx
+        - strings
+        - tmx
+        - ts
+        - txt
+        - xlf
+        - xml
+        - yml
   - import_file_path:
     opts:
-      title: "Path to imported translations"
-      summary: "Path to the file that has to be imported in Loco. Required if you want to import assets."
-      category: "Import"
-  - import_index: "id"
+      title: Path to imported translations
+      summary: Path to the file that has to be imported in Loco. Required if you are importing assets.
+      category: Import
+  - import_index: id
     opts:
-      title: "import_index"
-      summary: "Specify whether translations in your file are import_indexed by generic IDs or human-readable source text"
-      category: "Import"
+      title: import_index
+      summary: Specify whether translations in your file are indexed by generic IDs or human-readable source text
+      category: Import
       value_options:
-        - "id"
-        - "text"
+        - id
+        - text
   - import_locale:
     opts:
-      title: "Locale"
-      summary: "Specify target locale if importing translations"
-      category: "Import"
+      title: Locale
+      summary: Specify target locale if importing translations
+      category: Import
   - import_async: "false"
     opts:
-      title: "Async"
-      summary: "Specify that import should be done asynchronously (recommended for large files)"
-      category: "Import"
+      title: Async
+      summary: Specify that import should be done asynchronously (recommended for large files)
+      category: Import
       value_options:
         - "true"
         - "false"
   - import_source_path:
     opts:
-      title: "Path"
-      summary: "Specify original file path for source code references (excluding line number)"
-      category: "Import"
+      title: Path
+      summary: Specify original file path for source code references (excluding line number)
+      category: Import
   - import_ignore_new: "false"
     opts:
-      title: "Ignore new"
-      summary: "Specify that new assets will NOT be added to the project"
-      category: "Import"
+      title: Ignore new
+      summary: Specify that new assets will **NOT** be added to the project
+      category: Import
       value_options:
         - "true"
         - "false"
   - import_ignore_existing: "false"
     opts:
-      title: "Ignore existing"
-      summary: "Specify that existing assets encountered in the file will NOT be updated"
-      category: "Import"
+      title: Ignore existing
+      summary: Specify that existing assets encountered in the file will NOT be updated
+      category: Import
       value_options:
         - "true"
         - "false"
   - import_delete_absent: "false"
     opts:
-      title: "Delete absent"
-      summary: "Permanently DELETES project assets NOT found in the file (use with extreme caution)"
-      category: "Import"
+      title: Delete absent
+      summary: Permanently **DELETES** project assets NOT found in the file (use with extreme caution)
+      category: Import
       value_options:
         - "true"
         - "false"
   - import_tag_new:
     opts:
-      title: "Tag new"
-      summary: "Tag any NEW assets added during the import with the given tags (comma separated)"
-      category: "Import"
+      title: Tag new
+      summary: Tag any NEW assets added during the import with the given tags (comma separated)
+      category: Import
   - import_tag_all:
     opts:
-      title: "Tag all"
-      summary: "Tag ALL assets in the file with the given tags (comma separated)"
-      category: "Import"
+      title: Tag all
+      summary: Tag ALL assets in the file with the given tags (comma separated)
+      category: Import
   - import_untag_all:
     opts:
-      title: "Untag all"
-      summary: "Remove existing tags from any assets matched in the imported file (comma separated)"
-      category: "Import"
+      title: Untag all
+      summary: Remove existing tags from any assets matched in the imported file (comma separated)
+      category: Import
   - import_tag_updated:
     opts:
-      title: "Tag updated"
-      summary: "Tag existing assets that are MODIFIED by this import"
-      category: "Import"
+      title: Tag updated
+      summary: Tag existing assets that are MODIFIED by this import
+      category: Import
   - untag_updated:
     opts:
-      title: "Untag updated"
-      summary: "Remove existing tags from assets that are MODIFIED during import"
-      category: "Import"
+      title: Untag updated
+      summary: Remove existing tags from assets that are MODIFIED during import
+      category: Import
   - import_tag_absent:
     opts:
-      title: "Tag absent"
-      summary: "Tag existing assets in the project that are NOT found in the imported file"
-      category: "Import"
+      title: Tag absent
+      summary: Tag existing assets in the project that are NOT found in the imported file
+      category: Import
   - import_untag_absent:
     opts:
-      title: "Untag absent"
-      summary: "Remove existing tags from assets NOT found in the imported file"
-      category: "Import"
+      title: Untag absent
+      summary: Remove existing tags from assets NOT found in the imported file
+      category: Import
 # Export input variables
-  # - export_file_ext:
-  #   opts:
-  #     title: "File extension"
-      
+  - export_file_ext: all|csv
+    opts:
+      title: File extension
+      summary: Target file type specified as a file extension. Required if you are exporting assets.
+      description: |
+        Target file type specified as a file extension. Required if you are exporting assets.
+        * The options prepended with `all` export all your locales into a single file.
+        * The options prepended with `archive` export all your locales into a zip file that can optionally be extracted.
+        * The options prepended with `locale` export a single locale into a single file.
+      category: Export
+      value_options:
+        - all|json
+        - all|csv
+        - all|html
+        - all|sql
+        - all|tmx
+        - all|xlf
+        - all|yml
+        - archive|arb
+        - archive|csv
+        - archive|html
+        - archive|ini
+        - archive|json
+        - archive|mo
+        - archive|php
+        - archive|po
+        - archive|pot
+        - archive|plist
+        - archive|bplist
+        - archive|properties
+        - archive|res
+        - archive|resx
+        - archive|sql
+        - archive|strings
+        - archive|stringsdict
+        - archive|tmx
+        - archive|ts
+        - archive|txt
+        - archive|xlf
+        - archive|xliff
+        - archive|xml
+        - archive|yml
+        - locale|arb
+        - locale|csv
+        - locale|html
+        - locale|ini
+        - locale|json
+        - locale|mo
+        - locale|php
+        - locale|po
+        - locale|pot
+        - locale|plist
+        - locale|bplist
+        - locale|properties
+        - locale|res
+        - locale|resx
+        - locale|sql
+        - locale|strings
+        - locale|stringsdict
+        - locale|tmx
+        - locale|ts
+        - locale|txt
+        - locale|xlf
+        - locale|xliff
+        - locale|xml
+        - locale|yml
+  - export_locale:
+    opts:
+      title: Locale
+      summary: Locale to export, specified as short code or language tag. e.g. `en` or `en_GB`. Required and only valid if you selected an extension prepended with `locale`.
+      category: Export
+  - export_format:
+    opts:
+      title: Format
+      summary: More specific format of file type. e.g. `rails` applies to `yml` and `symfony` applies to `php`, `xlf` & `yml`
+      category: Export
+      value_options:
+        - rails
+        - i18next
+        - i18next3
+        - symfony
+        - zend
+        - codeigniter
+        - constants
+        - chrome
+        - nested
+        - rails
+        - java
+        - tizen
+        - jed
+        - gettext
+        - ng-gettext
+        - xcode
+        - script
+  - export_filter:
+    opts:
+      title: Filter
+      summary: Filter assets by comma-separated tag names. Match any tag with * and negate tags by prefixing with !
+      category: Export
+  - export_index:
+    opts:
+      title: Index
+      summary: Override default lookup key for the file format; `id`, `text` or a custom alias
+      category: Export
+  - export_source:
+    opts:
+      title: Source
+      summary: Specify alternative source locale instead of project default
+      category: Export
+  - export_fallback:
+    opts:
+      title: Fallback
+      summary: Fallback locale for untranslated assets, specified as short code. e.g. `en` or `en_GB`
+      category: Export
+  - export_order: created
+    opts:
+      title: Order
+      summary: Export translations according to asset order
+      category: Export
+      value_options:
+        - created
+        - id
+  - export_printf: default
+    opts:
+      title: printf style
+      summary: Force alternative "printf" style. [See string formatting](https://localise.biz/help/developers/printf)
+      category: Export
+      value_options:
+        - default
+        - php
+        - java
+        - objc
+        - icu
+  - export_charset: UTF-8
+    opts:
+      title: Encoding
+      summary: Specify preferred character encoding.
+      category: Export
+  - export_breaks: Unix
+    opts:
+      title: Line-endings
+      summary: Force platform-specific line-endings. Default is Unix (LF) breaks.
+      category: Export
+      value_options:
+        - Unix
+        - DOS
+        - Mac
+  - export_no_comments: "false"
+    opts:
+      title: No comments
+      summary: Disable rendering of redundant inline comments including the Loco banner.
+      category: Export
+      value_options:
+        - "true"
+        - "false"
+  - export_no_folding: "false"
+    opts:
+      title: No folding
+      summary: Protect [dot-separated](https://localise.biz/help/developers/asset-ids#folding) keys so that `foo.bar` is not folded into object properties.	
+      category: Export
+      value_options:
+        - "true"
+        - "false"
+  - export_namespace:
+    opts:
+      title: Namespace
+      summary: Override the project name for some language packs that use it as a key prefix
+      category: Export
+  - export_status:
+    opts:
+      title: Status
+      summary: Export translations with a specific status or flag. Negate values by prefixing with !. e.g. `translated`, or `!fuzzy`.
+      category: Export
+  - export_path:
+    opts:
+      title: Path
+      summary: Custom pattern for file paths. [See syntax](https://localise.biz/help/developers/locales/export-paths)
+      category: Export
 
 # outputs:
 #   - EXAMPLE_STEP_OUTPUT:

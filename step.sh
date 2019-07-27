@@ -3,7 +3,7 @@ set -e
 
 import_url_params=""
 should_import=true
-# should_export=true
+should_export=true
 has_not_imported_or_exported=true
 
 if [ -z $import_file_path ] ; then
@@ -76,6 +76,8 @@ if [ "$should_import" = true ] ; then
     curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
+
+
 
 if [ "$has_not_imported_or_exported" = true ] ; then
     echo "Step did not do anything."
