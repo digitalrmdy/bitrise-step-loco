@@ -71,7 +71,7 @@ inputs:
       is_expand: true
       is_required: true
       is_sensitive: true
-  - file_ext: "csv"
+  - import_file_ext: "csv"
     opts:
       title: "File extension"
       summary: "File extension for the type of data you're importing"
@@ -98,26 +98,26 @@ inputs:
         - "xlf"
         - "xml"
         - "yml"
-  - index: "id"
+  - import_index: "id"
     opts:
-      title: "Index"
-      summary: "Specify whether translations in your file are indexed by generic IDs or human-readable source text"
+      title: "import_index"
+      summary: "Specify whether translations in your file are import_indexed by generic IDs or human-readable source text"
       is_required: true
       category: "Import"
       value_options:
         - "id"
         - "text"
-  - file_path:
+  - import_file_path:
     opts:
       title: "Path to imported translations"
       summary: "Path to the file that has to be imported in Loco. Leave this empty if you don't want to import any translations."
       category: "Import"
-  - locale:
+  - import_locale:
     opts:
       title: "Locale"
       summary: "Specify target locale if importing translations"
       category: "Import"
-  - async: "false"
+  - import_async: "false"
     opts:
       title: "Async"
       summary: "Specify that import should be done asynchronously (recommended for large files)"
@@ -125,12 +125,12 @@ inputs:
       value_options:
         - "true"
         - "false"
-  - source_path:
+  - import_source_path:
     opts:
       title: "Path"
       summary: "Specify original file path for source code references (excluding line number)"
       category: "Import"
-  - ignore_new: "false"
+  - import_ignore_new: "false"
     opts:
       title: "Ignore new"
       summary: "Specify that new assets will NOT be added to the project"
@@ -138,7 +138,7 @@ inputs:
       value_options:
         - "true"
         - "false"
-  - ignore_existing: "false"
+  - import_ignore_existing: "false"
     opts:
       title: "Ignore existing"
       summary: "Specify that existing assets encountered in the file will NOT be updated"
@@ -146,7 +146,7 @@ inputs:
       value_options:
         - "true"
         - "false"
-  - delete_absent: "false"
+  - import_delete_absent: "false"
     opts:
       title: "Delete absent"
       summary: "Permanently DELETES project assets NOT found in the file (use with extreme caution)"
@@ -154,22 +154,22 @@ inputs:
       value_options:
         - "true"
         - "false"
-  - tag_new:
+  - import_tag_new:
     opts:
       title: "Tag new"
       summary: "Tag any NEW assets added during the import with the given tags (comma separated)"
       category: "Import"
-  - tag_all:
+  - import_tag_all:
     opts:
       title: "Tag all"
       summary: "Tag ALL assets in the file with the given tags (comma separated)"
       category: "Import"
-  - untag_all:
+  - import_untag_all:
     opts:
       title: "Untag all"
       summary: "Remove existing tags from any assets matched in the imported file (comma separated)"
       category: "Import"
-  - tag_updated:
+  - import_tag_updated:
     opts:
       title: "Tag updated"
       summary: "Tag existing assets that are MODIFIED by this import"
@@ -179,12 +179,12 @@ inputs:
       title: "Untag updated"
       summary: "Remove existing tags from assets that are MODIFIED during import"
       category: "Import"
-  - tag_absent:
+  - import_tag_absent:
     opts:
       title: "Tag absent"
       summary: "Tag existing assets in the project that are NOT found in the imported file"
       category: "Import"
-  - untag_absent:
+  - import_untag_absent:
     opts:
       title: "Untag absent"
       summary: "Remove existing tags from assets NOT found in the imported file"

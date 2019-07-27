@@ -1,70 +1,70 @@
 #!/bin/bash
 set -e
 
-url_params=""
+import_url_params=""
 
-if [ -z $file_path ] ; then
+if [ -z $import_file_path ] ; then
     echo "Not importing anything"
     exit 1
 fi
 
-if [ ! -z $index ] ; then
-    url_params="${url_params}?index=${index}"
+if [ ! -z $import_index ] ; then
+    import_url_params="${import_url_params}?index=${import_index}"
 fi
 
-if [ ! -z $locale ] ; then
-    url_params="${url_params}&locale=${locale}"
+if [ ! -z $import_locale ] ; then
+    import_url_params="${import_url_params}&locale=${import_locale}"
 fi
 
-if [ ! -z $async ] ; then
-    url_params="${url_params}&async=${async}"
+if [ ! -z $import_async ] ; then
+    import_url_params="${import_url_params}&import_async=${import_async}"
 fi
 
-if [ ! -z $source_path ] ; then
-    url_params="${url_params}&path=${source_path}"
+if [ ! -z $import_source_path ] ; then
+    import_url_params="${import_url_params}&path=${import_source_path}"
 fi
 
-if [ ! -z $ignore_new ] ; then
-    url_params="${url_params}&ignore-new=${ignore_new}"
+if [ ! -z $import_ignore_new ] ; then
+    import_url_params="${import_url_params}&ignore-new=${import_ignore_new}"
 fi
 
-if [ ! -z $ignore_existing ] ; then
-    url_params="${url_params}&ignore-existing=${ignore_existing}"
+if [ ! -z $import_ignore_existing ] ; then
+    import_url_params="${import_url_params}&ignore-existing=${import_ignore_existing}"
 fi
 
-if [ ! -z $delete_absent ] ; then
-    url_params="${url_params}&delete-absent=${delete_absent}"
+if [ ! -z $import_delete_absent ] ; then
+    import_url_params="${import_url_params}&delete-absent=${import_delete_absent}"
 fi
 
-if [ ! -z $tag_new ] ; then
-    url_params="${url_params}&tag-new=${tag_new}"
+if [ ! -z $import_tag_new ] ; then
+    import_url_params="${import_url_params}&tag-new=${import_tag_new}"
 fi
 
-if [ ! -z $tag_all ] ; then
-    url_params="${url_params}&tag-all=${tag_all}"
+if [ ! -z $import_tag_all ] ; then
+    import_url_params="${import_url_params}&tag-all=${import_tag_all}"
 fi
 
-if [ ! -z $untag_all ] ; then
-    url_params="${url_params}&untag-all=${untag_all}"
+if [ ! -z $import_untag_all ] ; then
+    import_url_params="${import_url_params}&untag-all=${import_untag_all}"
 fi
 
-if [ ! -z $tag_updated ] ; then
-    url_params="${url_params}&tag-updated=${tag_updated}"
+if [ ! -z $import_tag_updated ] ; then
+    import_url_params="${import_url_params}&tag-updated=${import_tag_updated}"
 fi
 
-if [ ! -z $untag_updated ] ; then
-    url_params="${url_params}&untag-updated=${untag_updated}"
+if [ ! -z $import_untag_updated ] ; then
+    import_url_params="${import_url_params}&untag-updated=${import_untag_updated}"
 fi
 
-if [ ! -z $tag_absent ] ; then
-    url_params="${url_params}&tag-absent=${tag_absent}"
+if [ ! -z $import_tag_absent ] ; then
+    import_url_params="${import_url_params}&tag-absent=${import_tag_absent}"
 fi
 
-if [ ! -z $untag_absent ] ; then
-    url_params="${url_params}&untag-absent=${untag_absent}"
+if [ ! -z $import_untag_absent ] ; then
+    import_url_params="${import_url_params}&untag-absent=${import_untag_absent}"
 fi
 
-curl -u $loco_api_key: -d @$file_path "https://localise.biz/api/import/${file_ext}${url_params}"
+curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
 
 #
 # --- Export Environment Variables for other Steps:
