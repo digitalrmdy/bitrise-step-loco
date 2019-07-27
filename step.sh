@@ -2,10 +2,18 @@
 set -e
 
 import_url_params=""
+should_import=true
+# should_export=true
+has_not_imported_or_exported=true
 
 if [ -z $import_file_path ] ; then
-    echo "Not importing anything"
-    exit 1
+    echo "Not importing anything because the path to the import file has not been set."
+    should_import=false
+fi
+
+if [ -z $import_file_ext ] ; then
+    echo "Not importing anything because the extension of the import file has not been set."
+    should_import=false
 fi
 
 if [ ! -z $import_index ] ; then
@@ -64,7 +72,15 @@ if [ ! -z $import_untag_absent ] ; then
     import_url_params="${import_url_params}&untag-absent=${import_untag_absent}"
 fi
 
-curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+if [ "$should_import" = true ] ; then
+    curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    has_not_imported_or_exported=false
+fi
+
+if [ "$has_not_imported_or_exported" = true ] ; then
+    echo "Step did not do anything."
+    exit 1
+fi
 
 #
 # --- Export Environment Variables for other Steps:

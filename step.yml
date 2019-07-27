@@ -44,9 +44,9 @@ host_os_tags:
 type_tags:
   - utility
 
-is_requires_admin_user: true
+is_requires_admin_user: false
 is_always_run: false
-is_skippable: true
+is_skippable: false
 run_if: ""
 
 deps:
@@ -62,6 +62,7 @@ toolkit:
 
 
 inputs:
+# Inputs for both import & export
   - loco_api_key:
     opts:
       title: "Loco API key"
@@ -71,11 +72,11 @@ inputs:
       is_expand: true
       is_required: true
       is_sensitive: true
+# Import input variables
   - import_file_ext: "csv"
     opts:
       title: "File extension"
-      summary: "File extension for the type of data you're importing"
-      is_required: true
+      summary: "File extension for the type of data you're importing. Required if you are importing assets."
       category: "Import"
       value_options:
         - "arb"
@@ -98,20 +99,19 @@ inputs:
         - "xlf"
         - "xml"
         - "yml"
+  - import_file_path:
+    opts:
+      title: "Path to imported translations"
+      summary: "Path to the file that has to be imported in Loco. Required if you want to import assets."
+      category: "Import"
   - import_index: "id"
     opts:
       title: "import_index"
       summary: "Specify whether translations in your file are import_indexed by generic IDs or human-readable source text"
-      is_required: true
       category: "Import"
       value_options:
         - "id"
         - "text"
-  - import_file_path:
-    opts:
-      title: "Path to imported translations"
-      summary: "Path to the file that has to be imported in Loco. Leave this empty if you don't want to import any translations."
-      category: "Import"
   - import_locale:
     opts:
       title: "Locale"
@@ -189,6 +189,11 @@ inputs:
       title: "Untag absent"
       summary: "Remove existing tags from assets NOT found in the imported file"
       category: "Import"
+# Export input variables
+  # - export_file_ext:
+  #   opts:
+  #     title: "File extension"
+      
 
 # outputs:
 #   - EXAMPLE_STEP_OUTPUT:
