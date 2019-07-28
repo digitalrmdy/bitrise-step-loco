@@ -1,20 +1,15 @@
 #!/bin/bash
-set -e
+set -ex
 
 import_url_params=""
 should_import=true
+
+export_url_params=""
 should_export=true
+export_url_path=""
+export_archive=false
+
 has_not_imported_or_exported=true
-
-if [ -z $import_file_path ] ; then
-    echo "Not importing anything because the path to the import file has not been set."
-    should_import=false
-fi
-
-if [ -z $import_file_ext ] ; then
-    echo "Not importing anything because the extension of the import file has not been set."
-    should_import=false
-fi
 
 if [ ! -z $import_index ] ; then
     import_url_params="${import_url_params}?index=${import_index}"
@@ -72,12 +67,76 @@ if [ ! -z $import_untag_absent ] ; then
     import_url_params="${import_url_params}&untag-absent=${import_untag_absent}"
 fi
 
+if [ -z $import_file_path ] ; then
+    echo "Not importing anything because the path to the import file has not been set."
+    should_import=false
+fi
+
+if [ "$should_import" = true ] && [ -z $import_file_ext ] ; then
+    echo "Not importing anything because the extension of the import file has not been set."
+    should_import=false
+fi
+
+if [ -z $export_file_ext ] ; then
+    echo "Not exporting anything because the extension of the export file has not been set."
+    should_export=false
+fi
+
+if [ "$should_export" = true ] && [ -z $export_file_path ] ; then
+    echo "Not exporting anything because the path to the export file has not been set."
+    should_export=false
+fi
+
+if [ "$should_export" = true ] && [[ $export_file_ext == all* ]] ; then
+    export_url_end=$(echo $export_file_ext| cut -b5-)
+    export_url_path=$"all.${export_url_end}"
+    download_path="${export_file_path}"
+fi
+
+if [ "$should_export" = true ] && [[ $export_file_ext == archive* ]] ; then
+    export_archive=true
+    export_url_end=$(echo $export_file_ext| cut -b9-)
+    export_url_path="archive/${export_url_end}.zip"
+
+    mkdir "downloads"
+    download_path="downloads/Loco.zip"
+
+    if [ ! -d "$export_file_path" ]; then
+        echo "export_file_path directory does not exist, creating..."
+        mkdir -p "$export_file_path"
+    fi
+fi
+
+if [ "$should_export" = true ] && [[ $export_file_ext == locale* ]] ; then
+
+    if [ -z $export_locale ] ; then
+        echo "Not exporting anything because the locale of the export file has not been set but the export extension set is locale."
+        should_export=false
+    else
+        export_url_end=$(echo $export_file_ext| cut -b8-)
+        export_url_path=$"locale/${export_locale}.${export_url_end}"
+        download_path="${export_file_path}"
+    fi
+
+fi
+
 if [ "$should_import" = true ] ; then
-    curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    echo "Importing your assets to Loco..."
+    curl -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
+if [ "$should_export" = true ] ; then
+    echo "Exporting your assets from Loco..."
+    curl -s -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
+    has_not_imported_or_exported=false
 
+    if [ "$export_archive" = true ] ; then
+        unzip -u "$download_path" -d unarchived/
+        cp -r unarchived/ "$export_file_path"
+    fi
+
+fi
 
 if [ "$has_not_imported_or_exported" = true ] ; then
     echo "Step did not do anything."

@@ -27,10 +27,11 @@ workflows:
         title: Step Test
         run_if: true
         inputs:
-        - import_file_path: /Users/sam/Code/3factr/ago-ido-mobile/src/Core/L10n/Translations.csv
+        - import_file_path: $IMPORT_PATH
         - import_file_ext: csv
         - import_index: id
         - import_locale: nl-BE
+        - export_file_path: $EXPORT_PATH
         - loco_api_key: $LOCO_API_KEY
 
 

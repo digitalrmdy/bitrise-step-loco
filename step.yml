@@ -193,7 +193,7 @@ inputs:
       description: |
         Target file type specified as a file extension. Required if you are exporting assets.
         * The options prepended with `all` export all your locales into a single file.
-        * The options prepended with `archive` export all your locales into a zip file that can optionally be extracted.
+        * The options prepended with `archive` export all your locales into a zip file that will be extracted.
         * The options prepended with `locale` export a single locale into a single file.
       category: Export
       value_options:
@@ -256,6 +256,11 @@ inputs:
     opts:
       title: Locale
       summary: Locale to export, specified as short code or language tag. e.g. `en` or `en_GB`. Required and only valid if you selected an extension prepended with `locale`.
+      category: Export
+  - export_file_path:
+    opts:
+      title: File path
+      summary: Where the exported file should be stored. This is required when you are exporting. This should be a path to a file when you are exporting a multi-locale or a single-locale file. This should be a path to a directory when you are exporting an archive.
       category: Export
   - export_format:
     opts:
