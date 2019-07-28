@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 import_url_params=""
 should_import=true
@@ -67,6 +67,62 @@ if [ ! -z $import_untag_absent ] ; then
     import_url_params="${import_url_params}&untag-absent=${import_untag_absent}"
 fi
 
+if [ ! -z $export_format ] ; then
+    export_url_params="${export_url_params} --data-urlencode format=${export_format}"
+fi
+
+if [ ! -z $export_filter ] ; then
+    export_url_params="${export_url_params} --data-urlencode filter=${export_filter}"
+fi
+
+if [ ! -z $export_index ] ; then
+    export_url_params="${export_url_params} --data-urlencode index=${export_index}"
+fi
+
+if [ ! -z $export_source ] ; then
+    export_url_params="${export_url_params} --data-urlencode source=${export_source}"
+fi
+
+if [ ! -z $export_fallback ] ; then
+    export_url_params="${export_url_params} --data-urlencode fallback=${export_fallback}"
+fi
+
+if [ ! -z $export_order ] ; then
+    export_url_params="${export_url_params} --data-urlencode order=${export_order}"
+fi
+
+if [ ! -z $export_printf ] && [ "$export_printf" != "default" ] ; then
+    export_url_params="${export_url_params} --data-urlencode printf=${export_printf}"
+fi
+
+if [ ! -z $export_charset ] ; then
+    export_url_params="${export_url_params} --data-urlencode charset=${export_charset}"
+fi
+
+if [ ! -z $export_breaks ] ; then
+    export_url_params="${export_url_params} --data-urlencode breaks=${export_breaks}"
+fi
+
+if [ ! -z $export_no_comments ] ; then
+    export_url_params="${export_url_params} --data-urlencode no-comments=${export_no_comments}"
+fi
+
+if [ ! -z $export_no_folding ] ; then
+    export_url_params="${export_url_params} --data-urlencode no-folding=${export_no_folding}"
+fi
+
+if [ ! -z $export_namespace ] ; then
+    export_url_params="${export_url_params} --data-urlencode namespace=${export_namespace}"
+fi
+
+if [ ! -z $export_status ] ; then
+    export_url_params="${export_url_params} --data-urlencode status=${export_status}"
+fi
+
+if [ ! -z $export_path ] ; then
+    export_url_params="${export_url_params} --data-urlencode path=${export_path}"
+fi
+
 if [ -z $import_file_path ] ; then
     echo "Not importing anything because the path to the import file has not been set."
     should_import=false
@@ -98,7 +154,7 @@ if [ "$should_export" = true ] && [[ $export_file_ext == archive* ]] ; then
     export_url_end=$(echo $export_file_ext| cut -b9-)
     export_url_path="archive/${export_url_end}.zip"
 
-    mkdir "downloads"
+    mkdir -p "downloads"
     download_path="downloads/Loco.zip"
 
     if [ ! -d "$export_file_path" ]; then
@@ -122,17 +178,17 @@ fi
 
 if [ "$should_import" = true ] ; then
     echo "Importing your assets to Loco..."
-    curl -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    curl -f -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
 if [ "$should_export" = true ] ; then
     echo "Exporting your assets from Loco..."
-    curl -s -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
+    curl -f -G -s -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
-        unzip -u "$download_path" -d unarchived/
+        unzip -qq -o -u "$download_path" -d unarchived/
         cp -r unarchived/ "$export_file_path"
     fi
 

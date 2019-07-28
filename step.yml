@@ -290,7 +290,7 @@ inputs:
       title: Filter
       summary: Filter assets by comma-separated tag names. Match any tag with * and negate tags by prefixing with !
       category: Export
-  - export_index:
+  - export_index: id
     opts:
       title: Index
       summary: Override default lookup key for the file format; `id`, `text` or a custom alias
