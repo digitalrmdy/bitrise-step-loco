@@ -262,12 +262,13 @@ inputs:
       title: File path
       summary: Where the exported file should be stored. This is required when you are exporting. This should be a path to a file when you are exporting a multi-locale or a single-locale file. This should be a path to a directory when you are exporting an archive.
       category: Export
-  - export_format:
+  - export_format: default
     opts:
       title: Format
       summary: More specific format of file type. e.g. `rails` applies to `yml` and `symfony` applies to `php`, `xlf` & `yml`
       category: Export
       value_options:
+        - default
         - rails
         - i18next
         - i18next3

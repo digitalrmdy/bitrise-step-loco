@@ -67,7 +67,7 @@ if [ ! -z $import_untag_absent ] ; then
     import_url_params="${import_url_params}&untag-absent=${import_untag_absent}"
 fi
 
-if [ ! -z $export_format ] ; then
+if [ ! -z $export_format ] && [ "$export_format" != "default" ] ; then
     export_url_params="${export_url_params} --data-urlencode format=${export_format}"
 fi
 
