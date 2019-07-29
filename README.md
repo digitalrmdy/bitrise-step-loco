@@ -2,6 +2,7 @@
 
 This step can upload your new assets to Loco and download updated assets from Loco.
 
+[![Build Status](https://app.bitrise.io/app/eeed1e902aa6ddfd/status.svg?token=SBmkF10bDdkE9sFV-MgtQw&branch=master)](https://app.bitrise.io/app/eeed1e902aa6ddfd)
 
 ## How to use this Step
 
