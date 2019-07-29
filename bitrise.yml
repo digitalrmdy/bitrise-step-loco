@@ -12,8 +12,8 @@ app:
 workflows:
   ci:
     before_run:
-      - test
       - audit-this-step
+      - test
   test:
     steps:
     - change-workdir:
