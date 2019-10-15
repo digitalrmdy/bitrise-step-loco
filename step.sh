@@ -178,13 +178,13 @@ fi
 
 if [ "$should_import" = true ] ; then
     echo "Importing your assets to Loco..."
-    curl -f -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    curl -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
 if [ "$should_export" = true ] ; then
     echo "Exporting your assets from Loco..."
-    curl -f -G -s -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
+    curl -G -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
