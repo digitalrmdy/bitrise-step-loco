@@ -17,27 +17,6 @@ host_os_tags:
   - osx-10.10
   - ubuntu-16.04
 
-# If this step should be available only for certain project types
-# just uncomment this `project_type_tags` section and include all the
-# project types supported by the step. If the step can be used for all
-# project types then you can just remove this section.
-# If no `project_type_tags` specified (or specified as an empty array)
-# that means the step can be used for any project type.
-# You can find more information about project type tags in the Step Development Guideline:
-# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
-#
-# project_type_tags:
-#   - ios
-#   - macos
-#   - android
-#   - xamarin
-#   - react-native
-#   - cordova
-#   - ionic
-
-# Type tags are used for categorizing steps, for easier step discovery in Step Libraries.
-# You can find more information about type tags in the Step Development Guideline:
-# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
 type_tags:
   - utility
 
@@ -102,7 +81,7 @@ inputs:
       category: Import
   - import_index: id
     opts:
-      title: import_index
+      title: Index type
       summary: Specify whether translations in your file are indexed by generic IDs or human-readable source text
       category: Import
       value_options:
@@ -111,7 +90,7 @@ inputs:
   - import_locale:
     opts:
       title: Locale
-      summary: Specify target locale if importing translations
+      summary: Specify target locale if importing translations (e.g. en_US or en)
       category: Import
   - import_async: "false"
     opts:
@@ -265,7 +244,14 @@ inputs:
   - export_format: default
     opts:
       title: Format
-      summary: More specific format of file type. e.g. `rails` applies to `yml` and `symfony` applies to `php`, `xlf` & `yml`
+      summary: More specific format of file type. e.g. `rails` applies to `yml` and `symfony` applies to `php`, `xlf` & `yml`.
+      description: |
+        More specific format of file type. E.g. `rails` applies to `yml` and `symfony` applies to `php`, `xlf` & `yml`.
+        The default format picks the most commonly used format for the file type.
+        * `json` defaults to simple JSON structure
+        * `xml` defaults to Android string resources
+        * `yml` defaults to Symfony-style flat structure
+        * `php` defaults to Zend-style array
       category: Export
       value_options:
         - default
@@ -286,6 +272,7 @@ inputs:
         - ng-gettext
         - xcode
         - script
+        - android
   - export_filter:
     opts:
       title: Filter
@@ -370,13 +357,3 @@ inputs:
       title: Path
       summary: Custom pattern for file paths. [See syntax](https://localise.biz/help/developers/locales/export-paths)
       category: Export
-
-# outputs:
-#   - EXAMPLE_STEP_OUTPUT:
-#     opts:
-#       title: "Example Step Output"
-#       summary: Summary. No more than 2-3 sentences.
-#       description: |
-#         Description of this output.
-
-#         Can be Markdown formatted text.
