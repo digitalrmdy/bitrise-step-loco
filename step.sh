@@ -179,7 +179,7 @@ fi
 if [ "$should_import" = true ] ; then
     echo "Importing ${import_file_path} to Loco..."
     echo "Parameters: ${import_file_ext}${import_url_params}"
-    curl -v -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    curl -v -u $loco_api_key: -H "Content-Type: application/octet-stream" --data-binary @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
