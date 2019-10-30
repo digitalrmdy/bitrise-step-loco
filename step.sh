@@ -179,14 +179,14 @@ fi
 if [ "$should_import" = true ] ; then
     echo "Importing ${import_file_path} to Loco..."
     echo "Parameters: ${import_file_ext}${import_url_params}"
-    curl -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
+    curl -v -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
 if [ "$should_export" = true ] ; then
     echo "Exporting from Loco..."
     echo "Parameters: ${export_url_params}"
-    curl -s -G -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
+    curl -v -G -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
