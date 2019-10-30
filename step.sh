@@ -177,15 +177,15 @@ if [ "$should_export" = true ] && [[ $export_file_ext == locale* ]] ; then
 fi
 
 if [ "$should_import" = true ] ; then
-    echo "Importing your assets to Loco..."
+    echo "Importing ${import_file_path} to Loco..."
     echo "Parameters: ${import_file_ext}${import_url_params}"
     curl -s -u $loco_api_key: -d @$import_file_path "https://localise.biz/api/import/${import_file_ext}${import_url_params}"
     has_not_imported_or_exported=false
 fi
 
 if [ "$should_export" = true ] ; then
-    echo "Exporting your assets from Loco..."
-    echo "Parameters: ${export_url_path}"
+    echo "Exporting from Loco..."
+    echo "Parameters: ${export_url_params}"
     curl -s -G -u $loco_api_key: -o $download_path $export_url_params "https://localise.biz/api/export/${export_url_path}" 
     has_not_imported_or_exported=false
 
@@ -200,21 +200,3 @@ if [ "$has_not_imported_or_exported" = true ] ; then
     echo "Step did not do anything."
     exit 1
 fi
-
-#
-# --- Export Environment Variables for other Steps:
-# You can export Environment Variables for other Steps with
-#  envman, which is automatically installed by `bitrise setup`.
-# A very simple example:
-# envman add --key EXAMPLE_STEP_OUTPUT --value 'the value you want to share'
-# Envman can handle piped inputs, which is useful if the text you want to
-# share is complex and you don't want to deal with proper bash escaping:
-#  cat file_with_complex_input | envman add --KEY EXAMPLE_STEP_OUTPUT
-# You can find more usage examples on envman's GitHub page
-#  at: https://github.com/bitrise-io/envman
-
-#
-# --- Exit codes:
-# The exit code of your Step is very important. If you return
-#  with a 0 exit code `bitrise` will register your Step as "successful".
-# Any non zero exit code will be registered as "failed" by `bitrise`.
