@@ -154,8 +154,8 @@ if [ "$should_export" = true ] && [[ $export_file_ext == archive* ]] ; then
     export_url_end=$(echo $export_file_ext| cut -b9-)
     export_url_path="archive/${export_url_end}.zip"
 
-    mkdir -p "${HOME}/downloads"
-    download_path="${HOME}/downloads/Loco.zip"
+    mkdir -p "/tmp/loco/downloads"
+    download_path="/tmp/loco/Loco.zip"
 
     if [ ! -d "$export_file_path" ]; then
         echo "export_file_path directory does not exist, creating..."
@@ -190,8 +190,8 @@ if [ "$should_export" = true ] ; then
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
-        unzip -qq -o -u "$download_path" -d "${HOME}/unarchived/"
-        cp -r "${HOME}unarchived/" "$export_file_path"
+        unzip -qq -o -u "$download_path" -d "/tmp/loco/unarchived/"
+        cp -r "/tmp/loco/unarchived/" "$export_file_path"
     fi
 
 fi
