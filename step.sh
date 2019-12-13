@@ -151,7 +151,7 @@ fi
 
 if [ "$should_export" = true ] && [[ $export_file_ext == archive* ]] ; then
     export_archive=true
-    export_url_end=$(echo $export_file_ext| cut -b9-)
+    export_url_end=$(echo $export_file_ext | cut -b9-)
     export_url_path="archive/${export_url_end}.zip"
 
     mkdir -p "/tmp/loco/downloads"
@@ -169,7 +169,7 @@ if [ "$should_export" = true ] && [[ $export_file_ext == locale* ]] ; then
         echo "Not exporting anything because the locale of the export file has not been set but the export extension set is locale."
         should_export=false
     else
-        export_url_end=$(echo $export_file_ext| cut -b8-)
+        export_url_end=$(echo $export_file_ext | cut -b8-)
         export_url_path=$"locale/${export_locale}.${export_url_end}"
         download_path="${export_file_path}"
     fi
@@ -190,8 +190,14 @@ if [ "$should_export" = true ] ; then
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
-        unzip -qq -o -u "$download_path" -d "/tmp/loco/unarchived/"
-        cp -r "/tmp/loco/unarchived/" "$export_file_path"
+        unarchived_path="/tmp/loco/unarchived/"
+        unzip -qq -o -u "$download_path" -d "$unarchived_path"
+        extracted_files_count=$(ls -1 | wc -l | sed -e 's/^[ \t]*//')
+        if [ "$extracted_files_count" -lt 2 ]  ; then
+            single_dir=$(find . -mindepth 1 -type d -print -quit)
+            unarchived_path="${unarchived_path}${single_dir}/"
+        fi
+        cp -r "$unarchived_path" "$export_file_path"
     fi
 
 fi
