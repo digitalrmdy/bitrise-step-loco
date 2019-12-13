@@ -144,7 +144,7 @@ if [ "$should_export" = true ] && [ -z $export_file_path ] ; then
 fi
 
 if [ "$should_export" = true ] && [[ $export_file_ext == all* ]] ; then
-    export_url_end=$(echo $export_file_ext| cut -b5-)
+    export_url_end=$(echo $export_file_ext | cut -b5-)
     export_url_path=$"all.${export_url_end}"
     download_path="${export_file_path}"
 fi
@@ -192,12 +192,11 @@ if [ "$should_export" = true ] ; then
     if [ "$export_archive" = true ] ; then
         unarchived_path="/tmp/loco/unarchived/"
         unzip -qq -o -u "$download_path" -d "$unarchived_path"
-        extracted_files_count=$(ls -1 | wc -l | sed -e 's/^[ \t]*//')
+        extracted_files_count=$(ls -1 $unarchived_path | wc -l | sed -e 's/^[ \t]*//')
         if [ "$extracted_files_count" -lt 2 ]  ; then
-            single_dir=$(find . -mindepth 1 -type d -print -quit)
-            unarchived_path="${unarchived_path}${single_dir}/"
+            unarchived_path=$(find $unarchived_path -mindepth 1 -type d -print -quit)
         fi
-        cp -r "$unarchived_path" "$export_file_path"
+        cp -r "$unarchived_path"/* "$export_file_path"
     fi
 
 fi
