@@ -204,7 +204,6 @@ if [ "$should_export" = true ] ; then
         rm -rf "$unarchived_path"
     fi
 
-    rm -rf "$download_path"
     rm -rf "$download_folder"
 fi
 
