@@ -9,6 +9,12 @@ should_export=true
 export_url_path=""
 export_archive=false
 
+rm -rf "/tmp/loco/"
+unarchived_path="/tmp/loco/unarchived/"
+download_folder="/tmp/loco/downloads/"
+download_filename="Loco.zip"
+download_path="${download_folder}${download_filename}"
+
 has_not_imported_or_exported=true
 
 if [ ! -z $import_index ] ; then
@@ -154,8 +160,7 @@ if [ "$should_export" = true ] && [[ $export_file_ext == archive* ]] ; then
     export_url_end=$(echo $export_file_ext | cut -b9-)
     export_url_path="archive/${export_url_end}.zip"
 
-    mkdir -p "/tmp/loco/downloads"
-    download_path="/tmp/loco/Loco.zip"
+    mkdir -p "$download_folder"
 
     if [ ! -d "$export_file_path" ]; then
         echo "export_file_path directory does not exist, creating..."
@@ -190,15 +195,17 @@ if [ "$should_export" = true ] ; then
     has_not_imported_or_exported=false
 
     if [ "$export_archive" = true ] ; then
-        unarchived_path="/tmp/loco/unarchived/"
         unzip -qq -o -u "$download_path" -d "$unarchived_path"
         extracted_files_count=$(ls -1 $unarchived_path | wc -l | sed -e 's/^[ \t]*//')
         if [ "$extracted_files_count" -lt 2 ]  ; then
             unarchived_path=$(find $unarchived_path -mindepth 1 -type d -print -quit)
         fi
         cp -r "$unarchived_path"/* "$export_file_path"
+        rm -rf "$unarchived_path"
     fi
 
+    rm -rf "$download_path"
+    rm -rf "$download_folder"
 fi
 
 if [ "$has_not_imported_or_exported" = true ] ; then
